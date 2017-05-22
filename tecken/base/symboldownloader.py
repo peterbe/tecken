@@ -218,8 +218,8 @@ class SymbolDownloader:
                         Key=key,
                     )
                 except ClientError as exception:
-                    error_code = int(exception.response['Error']['Code'])
-                    if error_code == 404:
+                    code = exception.response['Error']['Code']
+                    if code == 'NoSuchKey' or int(code) == 404:
                         continue
                     # If anything else goes wrong, it's most likely a
                     # configuration problem we should be made aware of.
@@ -278,6 +278,10 @@ class SymbolDownloader:
                     # But if the content encoding is gzip we have
                     # re-wrap the stream.
                     if response.get('ContentEncoding') == 'gzip':
+                        print("SOMETHING IS GZIP ENCODED!")
+
+                        from pprint import pprint
+                        pprint(response)
                         bytestream = BytesIO(response['Body'].read())
                         stream = GzipFile(None, 'rb', fileobj=bytestream)
                     yield (source.bucket_name, key)

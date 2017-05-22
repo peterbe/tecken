@@ -321,7 +321,7 @@ class Base(Core):
     # If there's a bucket you want to include that should be accessed
     # by HTTP only, add '?access=public' to the URL.
     SYMBOL_URLS = values.ListValue([
-        'https://s3-us-west-2.amazonaws.com/org.mozilla.crash-stats.symbols-public/v1/?access=public',  # noqa
+        'https://s3-us-west-2.amazonaws.com/org.mozilla.crash-stats.symbols-public/v1/',#'?access=public',  # noqa
     ])
 
     # Number of seconds to wait for a symbol download. If this
